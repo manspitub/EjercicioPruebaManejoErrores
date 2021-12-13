@@ -14,7 +14,6 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class EstacionServicio {
@@ -55,7 +54,6 @@ public class EstacionServicio {
 
     @Lob
     @NonNull
-    @Builder.Default
     private String servicios;
 
     @JsonFormat(pattern = "ddMMyyyy")
