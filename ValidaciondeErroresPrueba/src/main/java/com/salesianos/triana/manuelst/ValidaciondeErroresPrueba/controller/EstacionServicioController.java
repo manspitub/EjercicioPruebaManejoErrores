@@ -22,7 +22,7 @@ import java.util.List;
 public class EstacionServicioController {
 
     private final EstacionServicioRepository estacionServicioRepository;
-
+    private final EstacionServicioService service;
 
     @GetMapping("/estacion")
     public ResponseEntity<?> estacionesServicio ()  {

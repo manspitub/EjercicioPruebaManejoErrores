@@ -1,21 +1,26 @@
 package com.salesianos.triana.manuelst.ValidaciondeErroresPrueba.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import com.salesianos.triana.manuelst.ValidaciondeErroresPrueba.validadores.anotaciones.UniqueName;
+import jdk.jfr.Timestamp;
+import lombok.*;
+import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.context.annotation.Description;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter @Setter
+@Builder
 public class EstacionServicio {
     @Id
     @GeneratedValue
@@ -23,12 +28,13 @@ public class EstacionServicio {
     private Long id;
 
     @NotNull(message = "La estacion debe tener un nombre")
+    @UniqueName(message = "Debe ser unico")
     private String nombre;
 
 
     private String marca;
 
-    @NotNull(message = "Debe tener latitud")
+    @NotBlank(message = "{estacionServicio.latitud.blank}")
     private String latitud;
 
     @NotNull(message = "Debe tener longitud")
@@ -40,7 +46,7 @@ public class EstacionServicio {
     @NonNull
     private float precioGasoilNormal;
 
-    @Min(0)
+    @Min(value = 0, message = "no debe ser menor a cero")
     @NonNull
     private float precioGasolina95Octanos;
 
@@ -56,8 +62,11 @@ public class EstacionServicio {
     @NonNull
     private String servicios;
 
-    @JsonFormat(pattern = "ddMMyyyy")
+    @Past
     private LocalDateTime fechaApertura;
+
+
+    private LocalDateTime fechaRegistro;
 
 
 
