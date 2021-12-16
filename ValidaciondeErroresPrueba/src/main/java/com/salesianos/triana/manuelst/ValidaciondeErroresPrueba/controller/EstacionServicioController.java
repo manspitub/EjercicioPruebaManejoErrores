@@ -1,6 +1,7 @@
 package com.salesianos.triana.manuelst.ValidaciondeErroresPrueba.controller;
 
 import com.salesianos.triana.manuelst.ValidaciondeErroresPrueba.EstacionServicioRepository;
+import com.salesianos.triana.manuelst.ValidaciondeErroresPrueba.dto.CreatedEstacionDTO;
 import com.salesianos.triana.manuelst.ValidaciondeErroresPrueba.error.excepciones.SingleEntityNotFoundException;
 import com.salesianos.triana.manuelst.ValidaciondeErroresPrueba.model.EstacionServicio;
 import com.salesianos.triana.manuelst.ValidaciondeErroresPrueba.services.EstacionServicioService;
@@ -43,9 +44,11 @@ public class EstacionServicioController {
         return ResponseEntity.ok(estacionServicio);
     }
 
+
+
     @PostMapping("/")
-    public ResponseEntity<?> crearEstacion(@Valid @RequestBody EstacionServicio nuevo) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(estacionServicioRepository.save(nuevo));
+    public ResponseEntity<EstacionServicio> crearEstacion(@Valid @RequestBody CreatedEstacionDTO nuevo) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.save(nuevo));
 
 
     }

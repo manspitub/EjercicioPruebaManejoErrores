@@ -27,42 +27,32 @@ public class EstacionServicio {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @NotNull(message = "La estacion debe tener un nombre")
-    @UniqueName(message = "Debe ser unico")
+
     private String nombre;
 
 
     private String marca;
 
-    @NotBlank(message = "{estacionServicio.latitud.blank}")
-    private String latitud;
-
-    @NotNull(message = "Debe tener longitud")
-    private String longitud;
+    private String ubicacion;
 
     private boolean tieneAutolavado;
 
-    @Min(0)
-    @NonNull
+
     private float precioGasoilNormal;
 
-    @Min(value = 0, message = "no debe ser menor a cero")
-    @NonNull
+
     private float precioGasolina95Octanos;
 
-    @Min(0)
-    @NonNull
+
     private float precioGasoilEspecial;
 
-    @Min(0)
-    @NonNull
+
     private float precioGasolina98;
 
-    @Lob
-    @NonNull
+
     private String servicios;
 
-    @Past
+
     private LocalDateTime fechaApertura;
 
 

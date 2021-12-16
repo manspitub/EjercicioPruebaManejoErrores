@@ -9,6 +9,8 @@ import org.hibernate.validator.internal.engine.path.PathImpl;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -17,6 +19,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.validation.ConstraintViolationException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,9 +52,45 @@ public class GlobalRestControllerAdvice extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+
+
+        List<ApiSubError> subErrorList = new ArrayList<>();
+
+        ex.getAllErrors().forEach(error -> {
+
+            // Si el error de validación se ha producido a raíz de una anotación en un atributo...
+            if (error instanceof FieldError) {
+                FieldError fieldError = (FieldError) error;
+
+                subErrorList.add(
+                        ApiValidationSubError.builder()
+                                .objeto(fieldError.getObjectName())
+                                .campo(fieldError.getField())
+                                .valorRechazado(fieldError.getRejectedValue())
+                                .mensaje(fieldError.getDefaultMessage())
+                                .build()
+                );
+            }
+            else // Si no, es que se ha producido en una anotación a nivel de clase
+            {
+                ObjectError objectError = (ObjectError) error;
+
+                subErrorList.add(
+                        ApiValidationSubError.builder()
+                                .objeto(objectError.getObjectName())
+                                .mensaje(objectError.getDefaultMessage())
+                                .build()
+                );
+            }
+
+
+        });
+
+
+
         return buildApiErrorWithSubError(HttpStatus.BAD_REQUEST, "Errores varios en la validación",
                 request,
-                ex.getFieldErrors()
+                /*ex.getFieldErrors()
                         .stream().map(error -> ApiValidationSubError.builder()
                                 .objeto(error.getObjectName())
                                 .campo(error.getField())
@@ -59,6 +98,8 @@ public class GlobalRestControllerAdvice extends ResponseEntityExceptionHandler {
                                 .mensaje(error.getDefaultMessage())
                                 .build())
                         .collect(Collectors.toList())
+                */
+                subErrorList.isEmpty() ? null : subErrorList
         );
     }
 

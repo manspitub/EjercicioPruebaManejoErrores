@@ -25,8 +25,7 @@ public class EstacionServicioService {
                 .precioGasoilNormal(createdEstacionDTO.getPrecioGasoilNormal())
                 .precioGasolina98(createdEstacionDTO.getPrecioGasolina98())
                 .tieneAutolavado(createdEstacionDTO.isTieneAutolavado())
-                .longitud(createdEstacionDTO.getLongitud())
-                .latitud(createdEstacionDTO.getLatitud())
+                .ubicacion(createdEstacionDTO.getUbicacion())
                 .build());
     }
 }

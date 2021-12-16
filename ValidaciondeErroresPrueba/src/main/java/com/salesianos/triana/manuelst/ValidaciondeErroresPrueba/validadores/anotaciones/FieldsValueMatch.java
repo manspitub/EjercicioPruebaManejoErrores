@@ -13,12 +13,11 @@ import java.lang.annotation.Target;
 @Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface FieldsValueMatch {
-    String message() default "Los valores de los campos no coinciden";
+    String message() default "No deben coincidir el atributo con uno ya registrado en la base de datos";
 
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 
-    String field();
 
     String fieldMatch();
 

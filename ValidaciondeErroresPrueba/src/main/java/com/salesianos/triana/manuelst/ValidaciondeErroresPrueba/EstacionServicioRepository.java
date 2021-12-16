@@ -8,4 +8,5 @@ public interface EstacionServicioRepository extends JpaRepository<EstacionServic
 
 
     boolean existsByNombre(String nombre);
+    boolean existsByUbicacion(String ubicacion);
 }
