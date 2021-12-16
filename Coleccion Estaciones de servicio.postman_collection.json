@@ -7,10 +7,32 @@
 	"item": [
 		{
 			"name": "Get Estaciones",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": null
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9090/estacion",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"estacion"
+					]
+				}
 			},
 			"response": []
 		},
@@ -19,16 +41,45 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": null
+				"url": {
+					"raw": "http://localhost:9090/estacion",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"estacion"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "Create Estacion",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
-				"url": null
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Manuel\",\r\n    \"marca\": \"Repsol\",\r\n    \"ubicacion\": \"37.6635392, -5.521409\",\r\n    \"tieneAutolavado\": false,\r\n    \"precioGasoilNormal\": 8,\r\n    \"precioGasolina95Octanos\": 7,\r\n    \"precioGasoilEspecial\": 3,\r\n    \"precioGasolina98\": 5,\r\n    \"servicios\": \"Estos son los serviciosggfjhgfjfgjgf\",\r\n    \"fechaApertura\": \"2020-12-16T01:04:11.558687900 \"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9090/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						""
+					]
+				}
 			},
 			"response": []
 		}
